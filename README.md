@@ -84,6 +84,15 @@ date
 you'll see that this prints the `$OE_LICENSE` environment variable. `main.py`
 also asserts that `OpenEye` is available before running.
 
+#### Output
+
+This will produce CSV files corresponding to the DDE, RMSD, TFD, and
+internal-coordinate RMSD (ICRMSD) metrics computed by [yammbs][yammbs], as well
+as plots of the DDE, RMSD, and TFD values. The DDEs are plotted as a histogram,
+while the TFDs and RMSDs are kernel density estimates (KDEs). The default output
+directory is `output/$dataset/$ff`, where `$ff` and `$dataset` are taken from
+the input provided to the script above.
+
 <!-- References -->
 [qcsubmit]: https://github.com/openforcefield/openff-qcsubmit
 [yammbs]: https://github.com/openforcefield/yammbs
