@@ -1,0 +1,13 @@
+Wed Jul 24 12:32:06 PDT 2024
+hpc3-22-14
+32223403
+/data/homezvol0/bwestbr1/oe_license.txt
+mkdir -p cache
+python cache_dataset.py -i filtered-tm-supp.json -o cache/filtered-tm-supp.json
+WARNING: This client version is newer than the server version. This may work if the versions are close, but expect exceptions and errors if attempting things the server does not support. client version: 0.56, server version: 0.55
+Converting records to molecules:   0%|          | 0/367 [00:00<?, ?it/s]Converting records to molecules:  10%|▉         | 35/367 [00:00<00:00, 343.12it/s]Converting records to molecules:  19%|█▉        | 71/367 [00:00<00:00, 351.35it/s]Converting records to molecules:  31%|███       | 113/367 [00:00<00:00, 379.10it/s]Converting records to molecules:  41%|████      | 151/367 [00:00<00:00, 378.96it/s]Converting records to molecules:  51%|█████▏    | 189/367 [00:00<00:00, 366.78it/s]Converting records to molecules:  65%|██████▍   | 237/367 [00:00<00:00, 402.62it/s]Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Converting records to molecules:  77%|███████▋  | 284/367 [00:00<00:00, 423.56it/s]Converting records to molecules:  94%|█████████▍| 345/367 [00:00<00:00, 479.85it/s]Converting records to molecules: 100%|██████████| 367/367 [00:00<00:00, 412.79it/s]
+Wed Jul 24 12:32:13 PDT 2024
