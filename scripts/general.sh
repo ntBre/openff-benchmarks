@@ -85,7 +85,7 @@ $cmd <<INP
 #SBATCH --account dmobley_lab
 #SBATCH --export ALL
 #SBATCH --constraint=fastscratch
-#SBATCH --output=bench.slurm.out
+#SBATCH --output=logs/bench.$$.out
 
 date
 hostname
