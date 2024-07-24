@@ -1,0 +1,47 @@
+Wed Jul 24 13:01:08 PDT 2024
+hpc3-21-19
+32224024
+/data/homezvol0/bwestbr1/oe_license.txt
+loading cached dataset from datasets/cache/filtered-tm-supp.json
+Storing molecules:   0%|          | 0/367 [00:00<?, ?it/s]Storing molecules:   2%|▏         | 9/367 [00:00<00:04, 79.42it/s]Storing molecules:  10%|▉         | 35/367 [00:00<00:01, 174.39it/s]Storing molecules:  15%|█▍        | 54/367 [00:00<00:01, 175.51it/s]Storing molecules:  20%|█▉        | 72/367 [00:00<00:02, 145.18it/s]Storing molecules:  25%|██▌       | 93/367 [00:00<00:02, 128.29it/s]Storing molecules:  34%|███▍      | 124/367 [00:00<00:01, 164.42it/s]Storing molecules:  39%|███▊      | 142/367 [00:00<00:01, 138.26it/s]Storing molecules:  45%|████▍     | 165/367 [00:01<00:01, 142.65it/s]Storing molecules:  53%|█████▎    | 193/367 [00:01<00:01, 164.01it/s]Storing molecules:  57%|█████▋    | 211/367 [00:01<00:00, 162.84it/s]Storing molecules:  63%|██████▎   | 232/367 [00:01<00:00, 156.12it/s]Storing molecules:  68%|██████▊   | 249/367 [00:01<00:00, 129.06it/s]Storing molecules:  75%|███████▍  | 275/367 [00:01<00:00, 144.02it/s]Storing molecules:  79%|███████▉  | 291/367 [00:02<00:00, 134.27it/s]Storing molecules:  84%|████████▍ | 309/367 [00:02<00:00, 143.76it/s]Storing molecules:  89%|████████▊ | 325/367 [00:02<00:00, 135.78it/s]Storing molecules:  93%|█████████▎| 341/367 [00:02<00:00, 139.54it/s]Storing molecules:  98%|█████████▊| 361/367 [00:02<00:00, 152.42it/s]Storing molecules: 100%|██████████| 367/367 [00:02<00:00, 146.02it/s]
+Storing Records:   0%|          | 0/367 [00:00<?, ?it/s]Storing Records: 100%|██████████| 367/367 [00:00<00:00, 68499.00it/s]
+started optimizing store
+Building and minimizing systems with openff-2.1.0.offxml:   0%|          | 0/367 [00:00<?, ?it/s]Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Warning: : Failed due to unspecified stereochemistry
+Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Building and minimizing systems with openff-2.1.0.offxml:   0%|          | 1/367 [00:27<2:48:02, 27.55s/it]Building and minimizing systems with openff-2.1.0.offxml:  18%|█▊        | 65/367 [00:46<02:57,  1.70it/s] Warning: : Failed due to unspecified stereochemistry
+Building and minimizing systems with openff-2.1.0.offxml:  26%|██▋       | 97/367 [01:23<03:42,  1.22it/s]Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Building and minimizing systems with openff-2.1.0.offxml:  35%|███▌      | 129/367 [03:20<07:27,  1.88s/it]Building and minimizing systems with openff-2.1.0.offxml: 100%|██████████| 367/367 [03:20<00:00,  1.83it/s]
+finished optimizing after 201.486398935318 sec
+getting DDEs
+getting RMSDs
+getting TFDs
+WARNING:root:Molecule InChI=1/CH6N2/c1-3-2/h3H,2H2,1H3/p+1/fCH7N2/h2H/q+1 failed with list index out of range
+getting internal coordinate RMSDs
+Wed Jul 24 13:05:03 PDT 2024
