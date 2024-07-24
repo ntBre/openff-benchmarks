@@ -8,3 +8,7 @@ tm-supp.json: download.py
 
 filtered-%.json: %.json filter.py
 	python filter.py -i $< -o $@ -c .cache/$$$$
+
+cache/%.json: %.json cache_dataset.py
+	mkdir -p cache
+	python cache_dataset.py -i $< -o $@
