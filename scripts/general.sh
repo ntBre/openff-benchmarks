@@ -5,12 +5,12 @@ shift
 ncpus=48
 hours=84
 mem=32
-env=fb-196-qcnew
+env=openff-benchmarks
 dataset=industry
 
 cmd=sbatch
 
-while getopts "c:t:m:h:s:de:" arg; do
+while getopts "dhc:t:m:s:e:" arg; do
 	case $arg in
 		h) echo 'usage: [-c CPUS] [-t CPU_HOURS] [-m GB_MEMORY] [-h]' ;;
 		c) ncpus=$OPTARG ;;
