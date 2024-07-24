@@ -50,7 +50,29 @@ else
 	ff=${ffbase%.offxml}
 fi
 
-echo generating input for force field $ff, with $ncpus cpus, $mem gb, and $hours hours
+# like the force field, allow providing just the base name of the dataset in the
+# datasets/cache dir. otherwise, assume the full path of the file was provided
+if [[ -f $dataset ]]
+then
+	dspath=$dataset
+	dsbase=$(basename $dataset)
+	dataset=${dsbase%.json}
+else
+	dspath=datasets/cache/$dataset.json
+fi
+
+if [[ ! -f $dspath ]]
+then
+	echo "error: dataset file not found at $dspath"
+	exit 1
+fi
+
+echo generating input for
+echo force field = $ff
+echo dataset = $dataset
+echo ncpus = $ncpus
+echo mem = $mem gb
+echo walltime = $hours hours
 
 $cmd <<INP
 #!/bin/bash
@@ -76,7 +98,7 @@ echo \$OE_LICENSE
 
 python -u main.py \
        --forcefield $ffpath \
-       --dataset datasets/cache/$dataset.json \
+       --dataset $dspath \
        --sqlite-file $ff.sqlite \
        --out-dir output/$dataset/$ff \
        --procs $ncpus \
