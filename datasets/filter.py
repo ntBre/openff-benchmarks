@@ -30,10 +30,11 @@ class ChargeCheckFilter(SinglepointRecordFilter):
 @click.option("--input-file", "-i")
 @click.option("--output-file", "-o")
 @click.option("--pretty-print", "-p", is_flag=True)
-def main(input_file, output_file, pretty_print):
+@click.option("--cache-dir", "-c")
+def main(input_file, output_file, pretty_print, cache_dir):
     ds = OptimizationResultCollection.parse_file(input_file)
     client = _CachedPortalClient(
-        "https://api.qcarchive.molssi.org:443/", cache_dir="."
+        "https://api.qcarchive.molssi.org:443/", cache_dir=cache_dir
     )
     with portal_client_manager(lambda _: client):
         ds = ds.filter(

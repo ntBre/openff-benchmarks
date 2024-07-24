@@ -7,4 +7,4 @@ tm-supp.json: download.py
 --output-file $@ --pretty-print
 
 filtered-%.json: %.json filter.py
-	python filter.py -i $< -o $@
+	python filter.py -i $< -o $@ -c .cache/$$$$
