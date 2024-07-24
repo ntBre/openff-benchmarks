@@ -15,7 +15,7 @@ hostname
 echo $SLURM_JOB_ID
 
 source ~/.bashrc
-mamba activate fb-196-qcnew
+mamba activate openff-benchmarks
 
 echo $OE_LICENSE
 
