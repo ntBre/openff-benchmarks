@@ -1,0 +1,47 @@
+Fri Jul 26 08:59:08 PDT 2024
+hpc3-21-00
+32245334
+/data/homezvol0/bwestbr1/oe_license.txt
+loading cached dataset from datasets/cache/filtered-tm-supp.json
+Storing molecules:   0%|          | 0/367 [00:00<?, ?it/s]Storing molecules:   2%|▏         | 6/367 [00:00<00:06, 58.85it/s]Storing molecules:  12%|█▏        | 44/367 [00:00<00:01, 230.65it/s]Storing molecules:  24%|██▎       | 87/367 [00:00<00:00, 302.96it/s]Storing molecules:  34%|███▍      | 125/367 [00:00<00:00, 322.51it/s]Storing molecules:  43%|████▎     | 157/367 [00:00<00:00, 282.96it/s]Storing molecules:  55%|█████▍    | 201/367 [00:00<00:00, 319.61it/s]Storing molecules:  70%|███████   | 257/367 [00:00<00:00, 364.23it/s]Storing molecules:  80%|████████  | 294/367 [00:00<00:00, 314.19it/s]Storing molecules:  93%|█████████▎| 341/367 [00:01<00:00, 319.93it/s]Storing molecules: 100%|██████████| 367/367 [00:01<00:00, 313.69it/s]
+Storing Records:   0%|          | 0/367 [00:00<?, ?it/s]Storing Records: 100%|██████████| 367/367 [00:00<00:00, 68337.83it/s]
+started optimizing store
+Building and minimizing systems with forcefields/tm.offxml:   0%|          | 0/367 [00:00<?, ?it/s]Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Warning: : Failed due to unspecified stereochemistry
+Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Building and minimizing systems with forcefields/tm.offxml:   0%|          | 1/367 [00:27<2:50:00, 27.87s/it]Building and minimizing systems with forcefields/tm.offxml:  18%|█▊        | 65/367 [00:45<02:54,  1.73it/s] Warning: : Failed due to unspecified stereochemistry
+Building and minimizing systems with forcefields/tm.offxml:  26%|██▋       | 97/367 [01:22<03:40,  1.22it/s]Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Building and minimizing systems with forcefields/tm.offxml:  35%|███▌      | 129/367 [03:19<07:25,  1.87s/it]Building and minimizing systems with forcefields/tm.offxml: 100%|██████████| 367/367 [03:19<00:00,  1.84it/s]
+finished optimizing after 200.56312799453735 sec
+getting DDEs
+getting RMSDs
+getting TFDs
+WARNING:root:Molecule InChI=1/CH6N2/c1-3-2/h3H,2H2,1H3/p+1/fCH7N2/h2H/q+1 failed with list index out of range
+getting internal coordinate RMSDs
+Fri Jul 26 09:03:00 PDT 2024
