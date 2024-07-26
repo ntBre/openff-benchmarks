@@ -19,7 +19,7 @@ def plotter(ffs, output_dir, input_dir="industry", names=None, **kwargs):
 @click.option("--input-dir", "-d", default="industry")
 @click.option("--filter-records", "-r", default=None)
 @click.option("--negate", "-n", is_flag=True, default=False)
-@click.option("--output_dir", "-o", default="current/figs")
+@click.option("--output_dir", "-o", default="/tmp")
 def main(forcefields, input_dir, filter_records, negate, output_dir):
     if filter_records is not None:
         # assume it's the name of a file
