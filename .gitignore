@@ -1,3 +1,4 @@
 /*.sqlite
 api.qcarchive.molssi.org_443
 .cache
+__pycache__/
