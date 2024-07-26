@@ -129,6 +129,11 @@ def plot_rmsds(dfs: list[pandas.DataFrame], names, out_dir):
     pyplot.savefig(f"{out_dir}/rmsd.png", dpi=300)
     pyplot.close()
 
+    ax = sea.ecdfplot(rmsds.iloc[:, 1:])
+    ax.set_xlabel("RMSD (Å)")
+    pyplot.savefig(f"{out_dir}/rmsd_cdf.png", dpi=300)
+    pyplot.close()
+
 
 def plot_tfds(dfs: list[pandas.DataFrame], names, out_dir):
     figure, axis = pyplot.subplots(figsize=(6, 4))
@@ -137,6 +142,11 @@ def plot_tfds(dfs: list[pandas.DataFrame], names, out_dir):
     ax.set_xlim((-4.0, 0.5))
     ax.set_xlabel("Log TFD")
     pyplot.savefig(f"{out_dir}/tfd.png", dpi=300)
+    pyplot.close()
+
+    ax = sea.ecdfplot(tfds.iloc[:, 1:])
+    ax.set_xlabel("TFD")
+    pyplot.savefig(f"{out_dir}/tfd_cdf.png", dpi=300)
     pyplot.close()
 
 
