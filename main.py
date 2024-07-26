@@ -111,13 +111,32 @@ def plot_ddes(dfs: list[pandas.DataFrame], names, out_dir):
         data=ddes.iloc[:, 1:],
         binrange=(-15, 15),
         bins=16,
-        # binwidth=2.5,
         element="step",
         fill=False,
     )
     label = "DDE (kcal mol$^{-1}$)"
     ax.set_xlabel(label)
     pyplot.savefig(f"{out_dir}/dde.png", dpi=300)
+    pyplot.close()
+
+
+def plot_rmsds(dfs: list[pandas.DataFrame], names, out_dir):
+    figure, axis = pyplot.subplots(figsize=(6, 4))
+    rmsds = merge_metrics(dfs, names, "rmsd")
+    ax = sea.kdeplot(data=numpy.log10(rmsds.iloc[:, 1:]))
+    ax.set_xlim((-2.0, 0.7))
+    ax.set_xlabel("Log RMSD")
+    pyplot.savefig(f"{out_dir}/rmsd.png", dpi=300)
+    pyplot.close()
+
+
+def plot_tfds(dfs: list[pandas.DataFrame], names, out_dir):
+    figure, axis = pyplot.subplots(figsize=(6, 4))
+    tfds = merge_metrics(dfs, names, "tfd")
+    ax = sea.kdeplot(data=numpy.log10(tfds.iloc[:, 1:]))
+    ax.set_xlim((-4.0, 0.5))
+    ax.set_xlabel("Log TFD")
+    pyplot.savefig(f"{out_dir}/tfd.png", dpi=300)
     pyplot.close()
 
 
@@ -146,6 +165,9 @@ def plot(out_dir, in_dirs=None, names=None, filter_records=None, negate=False):
     dfs = load_benches(in_dirs)
 
     plot_ddes(dfs, names, out_dir)
+    plot_rmsds(dfs, names, out_dir)
+    plot_tfds(dfs, names, out_dir)
+    plot_icrmsds(dfs, names, out_dir)
 
     exit(1)
 
