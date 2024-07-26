@@ -140,6 +140,28 @@ def plot_tfds(dfs: list[pandas.DataFrame], names, out_dir):
     pyplot.close()
 
 
+def plot_icrmsds(dfs, names, out_dir):
+    titles = {
+        "bonds": "Bond Internal Coordinate RMSDs",
+        "angles": "Angle Internal Coordinate RMSDs",
+        "dihedrals": "Proper Torsion Internal Coordinate RMSDs",
+        "impropers": "Improper Torsion Internal Coordinate RMSDs",
+    }
+    ylabels = {
+        "bonds": "Bond error (Å)",
+        "angles": "Angle error (̂°)",
+        "dihedrals": "Proper Torsion error (°)",
+        "impropers": "Improper Torsion error(°)",
+    }
+    for m in ["bonds", "angles", "dihedrals", "impropers"]:
+        df = merge_metrics(dfs, names, m)
+        ax = sea.boxplot(df.iloc[:, 1:])
+        pyplot.title(titles[m])
+        ax.set_ylabel(ylabels[m])
+        pyplot.savefig(f"{out_dir}/{m}.png", dpi=300)
+        pyplot.close()
+
+
 def plot(out_dir, in_dirs=None, names=None, filter_records=None, negate=False):
     """Plot each of the `dde`, `rmsd`, and `tfd` CSV files found in `in_dirs`
     and write the resulting PNG images to out_dir. If provided, take the plot
@@ -158,72 +180,21 @@ def plot(out_dir, in_dirs=None, names=None, filter_records=None, negate=False):
 
     dfs = load_benches(in_dirs)
 
+    # TODO restore this functionality at some point
+    # if filter_records is not None:
+    #     if negate:
+    #         dataframe = dataframe[
+    #             ~dataframe["Record ID"].astype(str).isin(filter_records)
+    #         ]
+    #     else:
+    #         dataframe = dataframe[
+    #             dataframe["Record ID"].astype(str).isin(filter_records)
+    #         ]
+
     plot_ddes(dfs, names, out_dir)
     plot_rmsds(dfs, names, out_dir)
     plot_tfds(dfs, names, out_dir)
     plot_icrmsds(dfs, names, out_dir)
-
-    exit(1)
-
-    # I'm becoming increasingly annoyed with the structure of this function. it
-    # tries to be clever by looping over the various input files and appending
-    # to the same figure, but it would be much more natural to load all of the
-    # data into a dataframe and plot it at once. that's how I structured the
-    # corresponding R code
-    for dtype in ["dde", "rmsd", "tfd", "icrmsd"]:
-        figure, axis = pyplot.subplots(figsize=(6, 4))
-
-        for name, in_dir in zip(names, in_dirs):
-            dataframe = pandas.read_csv(f"{in_dir}/{dtype}.csv")
-            dataframe = dataframe.rename(columns={"Unnamed: 0": "Record ID"})
-
-            if filter_records is not None:
-                if negate:
-                    dataframe = dataframe[
-                        ~dataframe["Record ID"]
-                        .astype(str)
-                        .isin(filter_records)
-                    ]
-                else:
-                    dataframe = dataframe[
-                        dataframe["Record ID"].astype(str).isin(filter_records)
-                    ]
-
-            match dtype:
-                case "dde":
-                    counts, bins = numpy.histogram(
-                        dataframe[dataframe.columns[-1]],
-                        bins=numpy.linspace(-15, 15, 16),
-                    )
-                    axis.stairs(counts, bins, label=name)
-                    axis.set_ylabel("Count")
-                    label = "DDE (kcal mol$^{-1}$)"
-                case "rmsd" | "tfd":
-                    # for rmsd and tfd, we want the log KDE
-                    sorted_data = numpy.sort(
-                        numpy.log10(dataframe[dataframe.columns[-1]])
-                    )
-                    sea.kdeplot(
-                        data=sorted_data,
-                        ax=axis,
-                        label=name,
-                    )
-                    label = "Log " + dtype.upper()
-                    axis.set_ylabel("Density")
-                    axis.set_xlim(x_ranges[dtype])
-                case "icrmsd":
-                    # there are actually four separate plots here, one for each
-                    # of the columns: Bond, Angle, Dihedral, Improper
-                    panic
-                case v:
-                    raise ValueError(f"Unrecognized data type: {v}")
-
-            axis.set_xlabel(label)
-
-        axis.legend(loc=0)
-
-        pyplot.tight_layout()
-        figure.savefig(f"{out_dir}/{dtype}.png", dpi=300)
 
 
 if __name__ == "__main__":
