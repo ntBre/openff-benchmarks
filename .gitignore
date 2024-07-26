@@ -2,3 +2,4 @@
 api.qcarchive.molssi.org_443
 .cache
 __pycache__/
+*debug*
