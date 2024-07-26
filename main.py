@@ -2,6 +2,7 @@ import logging
 import os
 import time
 import warnings
+from pathlib import Path
 
 import click
 import numpy
@@ -22,6 +23,8 @@ logging.getLogger("openff").setLevel(logging.ERROR)
 warnings.filterwarnings(
     "ignore", message="divide by zero", category=RuntimeWarning
 )
+
+pandas.set_option("display.max_columns", None)
 
 
 @click.command()
@@ -67,6 +70,57 @@ def make_csvs(store, forcefield, out_dir):
     )
 
 
+def load_bench(d: Path) -> pandas.DataFrame:
+    """Load the DDE, RMSD, TFD, and ICRMSD results from the CSV files in ``d``
+    and return the result as a merged dataframe"""
+    dde = pandas.read_csv(d / "dde.csv")
+    dde.columns = ["rec_id", "dde"]
+    rmsd = pandas.read_csv(d / "rmsd.csv")
+    rmsd.columns = ["rec_id", "rmsd"]
+    tfd = pandas.read_csv(d / "tfd.csv")
+    tfd.columns = ["rec_id", "tfd"]
+    icrmsd = pandas.read_csv(d / "icrmsd.csv")
+    icrmsd.columns = ["rec_id", "bonds", "angles", "dihedrals", "impropers"]
+    return (
+        dde.merge(rmsd)
+        .pipe(pandas.DataFrame.merge, tfd)
+        .pipe(pandas.DataFrame.merge, icrmsd)
+    )
+
+
+def load_benches(in_dirs):
+    return [load_bench(Path(d)) for d in in_dirs]
+
+
+def merge_metrics(dfs, names, metric: str):
+    assert len(dfs) >= 0, "must provide at least one dataframe"
+    df = dfs[0][["rec_id", metric]].copy()
+    df.columns = ["rec_id", names[0]]
+    for i, d in enumerate(dfs[1:]):
+        name = names[i + 1]
+        to_add = d[["rec_id", metric]].copy()
+        to_add.columns = ["rec_id", name]
+        df = df.merge(to_add, on="rec_id")
+    return df
+
+
+def plot_ddes(dfs: list[pandas.DataFrame], names, out_dir):
+    figure, axis = pyplot.subplots(figsize=(6, 4))
+    ddes = merge_metrics(dfs, names, "dde")
+    ax = sea.histplot(
+        data=ddes.iloc[:, 1:],
+        binrange=(-15, 15),
+        bins=16,
+        # binwidth=2.5,
+        element="step",
+        fill=False,
+    )
+    label = "DDE (kcal mol$^{-1}$)"
+    ax.set_xlabel(label)
+    pyplot.savefig(f"{out_dir}/dde.png", dpi=300)
+    pyplot.close()
+
+
 def plot(out_dir, in_dirs=None, names=None, filter_records=None, negate=False):
     """Plot each of the `dde`, `rmsd`, and `tfd` CSV files found in `in_dirs`
     and write the resulting PNG images to out_dir. If provided, take the plot
@@ -88,7 +142,19 @@ def plot(out_dir, in_dirs=None, names=None, filter_records=None, negate=False):
         "rmsd": (-2.0, 0.7),
         "tfd": (-4.0, 0.5),
     }
-    for dtype in ["dde", "rmsd", "tfd"]:
+
+    dfs = load_benches(in_dirs)
+
+    plot_ddes(dfs, names, out_dir)
+
+    exit(1)
+
+    # I'm becoming increasingly annoyed with the structure of this function. it
+    # tries to be clever by looping over the various input files and appending
+    # to the same figure, but it would be much more natural to load all of the
+    # data into a dataframe and plot it at once. that's how I structured the
+    # corresponding R code
+    for dtype in ["dde", "rmsd", "tfd", "icrmsd"]:
         figure, axis = pyplot.subplots(figsize=(6, 4))
 
         for name, in_dir in zip(names, in_dirs):
@@ -107,29 +173,34 @@ def plot(out_dir, in_dirs=None, names=None, filter_records=None, negate=False):
                         dataframe["Record ID"].astype(str).isin(filter_records)
                     ]
 
-            if dtype == "dde":
-                counts, bins = numpy.histogram(
-                    dataframe[dataframe.columns[-1]],
-                    bins=numpy.linspace(-15, 15, 16),
-                )
-
-                axis.stairs(counts, bins, label=name)
-
-                axis.set_ylabel("Count")
-                label = "DDE (kcal mol$^{-1}$)"
-            else:
-                # for rmsd and tfd, we want the log KDE
-                sorted_data = numpy.sort(
-                    numpy.log10(dataframe[dataframe.columns[-1]])
-                )
-                sea.kdeplot(
-                    data=sorted_data,
-                    ax=axis,
-                    label=name,
-                )
-                label = "Log " + dtype.upper()
-                axis.set_ylabel("Density")
-                axis.set_xlim(x_ranges[dtype])
+            match dtype:
+                case "dde":
+                    counts, bins = numpy.histogram(
+                        dataframe[dataframe.columns[-1]],
+                        bins=numpy.linspace(-15, 15, 16),
+                    )
+                    axis.stairs(counts, bins, label=name)
+                    axis.set_ylabel("Count")
+                    label = "DDE (kcal mol$^{-1}$)"
+                case "rmsd" | "tfd":
+                    # for rmsd and tfd, we want the log KDE
+                    sorted_data = numpy.sort(
+                        numpy.log10(dataframe[dataframe.columns[-1]])
+                    )
+                    sea.kdeplot(
+                        data=sorted_data,
+                        ax=axis,
+                        label=name,
+                    )
+                    label = "Log " + dtype.upper()
+                    axis.set_ylabel("Density")
+                    axis.set_xlim(x_ranges[dtype])
+                case "icrmsd":
+                    # there are actually four separate plots here, one for each
+                    # of the columns: Bond, Angle, Dihedral, Improper
+                    panic
+                case v:
+                    raise ValueError(f"Unrecognized data type: {v}")
 
             axis.set_xlabel(label)
 
