@@ -156,12 +156,6 @@ def plot(out_dir, in_dirs=None, names=None, filter_records=None, negate=False):
     if names is None:
         names = in_dirs
 
-    x_ranges = {
-        "dde": (-6.0, 6.0),
-        "rmsd": (-2.0, 0.7),
-        "tfd": (-4.0, 0.5),
-    }
-
     dfs = load_benches(in_dirs)
 
     plot_ddes(dfs, names, out_dir)
