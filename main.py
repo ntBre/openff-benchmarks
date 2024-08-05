@@ -81,11 +81,13 @@ def load_bench(d: Path) -> pandas.DataFrame:
     tfd.columns = ["rec_id", "tfd"]
     icrmsd = pandas.read_csv(d / "icrmsd.csv")
     icrmsd.columns = ["rec_id", "bonds", "angles", "dihedrals", "impropers"]
-    return (
+    ret = (
         dde.merge(rmsd)
         .pipe(pandas.DataFrame.merge, tfd)
         .pipe(pandas.DataFrame.merge, icrmsd)
     )
+    print(f"loaded {ret.shape} rows for {d}")
+    return ret
 
 
 def load_benches(in_dirs):
