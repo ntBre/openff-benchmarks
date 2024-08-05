@@ -6,6 +6,10 @@ tm-supp.json: download.py
 "OpenFF Torsion Multiplicity Optimization Benchmarking Coverage Supplement v1.0" \
 --output-file $@ --pretty-print
 
+tm-supp0.json: download.py
+	python download.py \
+	"OpenFF Torsion Benchmark Supplement v1.0" --output-file $@ --pretty-print
+
 filtered-%.json: %.json filter.py
 	python filter.py -i $< -o $@ -c .cache/$$$$
 
