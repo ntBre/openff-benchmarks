@@ -95,7 +95,7 @@ def load_benches(in_dirs):
 
 
 def merge_metrics(dfs, names, metric: str):
-    assert len(dfs) >= 0, "must provide at least one dataframe"
+    assert len(dfs) > 0, "must provide at least one dataframe"
     df = dfs[0][["rec_id", metric]].copy()
     df.columns = ["rec_id", names[0]]
     for i, d in enumerate(dfs[1:]):
