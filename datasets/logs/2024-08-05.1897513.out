@@ -1,0 +1,58 @@
+Mon Aug  5 09:35:02 PDT 2024
+hpc3-22-13
+32442976
+/data/homezvol0/bwestbr1/oe_license.txt
+python download.py \
+"OpenFF Torsion Benchmark Supplement v1.0" --output-file tm-supp0.json --pretty-print
+WARNING: This client version is newer than the server version. This may work if the versions are close, but expect exceptions and errors if attempting things the server does not support. client version: 0.56, server version: 0.55
+python filter.py -i tm-supp0.json -o filtered-tm-supp0.json -c .cache/$$
+WARNING: This client version is newer than the server version. This may work if the versions are close, but expect exceptions and errors if attempting things the server does not support. client version: 0.56, server version: 0.55
+Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Warning: : Failed due to unspecified stereochemistry
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 S on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 S on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 S on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 S on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: OEMMFFParams::PrepMol() : unable to type atom 4 S on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: OEMMFFParams::PrepMol() : unable to type atom 7 S on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: OEMMFFParams::PrepMol() : unable to type atom 9 S on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 9 S on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: : Failed due to unspecified stereochemistry
+Warning: OEMMFFParams::PrepMol() : unable to type atom 7 S on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: : Failed due to unspecified stereochemistry
+Warning: OEMMFFParams::PrepMol() : unable to type atom 13 S on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: : Failed due to unspecified stereochemistry
+Warning: OEMMFFParams::PrepMol() : unable to type atom 13 S on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: : Failed due to unspecified stereochemistry
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 S on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 S on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: : Failed due to unspecified stereochemistry
+Warning: OEMMFFParams::PrepMol() : unable to type atom 31 S on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Mon Aug  5 09:38:36 PDT 2024
