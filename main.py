@@ -70,7 +70,7 @@ def make_csvs(store, forcefield, out_dir):
     )
 
 
-def load_bench(d: Path) -> pandas.DataFrame:
+def load_bench(d: Path, filter_records, negate) -> pandas.DataFrame:
     """Load the DDE, RMSD, TFD, and ICRMSD results from the CSV files in ``d``
     and return the result as a merged dataframe"""
     dde = pandas.read_csv(d / "dde.csv")
@@ -86,12 +86,17 @@ def load_bench(d: Path) -> pandas.DataFrame:
         .pipe(pandas.DataFrame.merge, tfd)
         .pipe(pandas.DataFrame.merge, icrmsd)
     )
+    if filter_records is not None:
+        if negate:
+            ret = ret[~ret["rec_id"].astype(str).isin(filter_records)]
+        else:
+            ret = ret[ret["rec_id"].astype(str).isin(filter_records)]
     print(f"loaded {ret.shape} rows for {d}")
     return ret
 
 
-def load_benches(in_dirs):
-    return [load_bench(Path(d)) for d in in_dirs]
+def load_benches(in_dirs, filter_records, negate) -> list[pandas.DataFrame]:
+    return [load_bench(Path(d), filter_records, negate) for d in in_dirs]
 
 
 def merge_metrics(dfs, names, metric: str):
@@ -190,18 +195,7 @@ def plot(out_dir, in_dirs=None, names=None, filter_records=None, negate=False):
     if names is None:
         names = in_dirs
 
-    dfs = load_benches(in_dirs)
-
-    # TODO restore this functionality at some point
-    # if filter_records is not None:
-    #     if negate:
-    #         dataframe = dataframe[
-    #             ~dataframe["Record ID"].astype(str).isin(filter_records)
-    #         ]
-    #     else:
-    #         dataframe = dataframe[
-    #             dataframe["Record ID"].astype(str).isin(filter_records)
-    #         ]
+    dfs = load_benches(in_dirs, filter_records, negate)
 
     plot_ddes(dfs, names, out_dir)
     plot_rmsds(dfs, names, out_dir)
