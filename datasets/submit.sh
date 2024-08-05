@@ -11,6 +11,28 @@
 #
 # Slurm output is saved to logs/$date.$pid.out
 
+usage="Usage: $0 CMDS... [-h] [-t CPU_HOURS] [-m GB_MEMORY]"
+
+case $# in
+	0) echo 'error: no arguments provided'
+	   echo $usage
+	   exit 1;;
+esac
+
+# default options
+hours=72
+mem=32
+
+while getopts "ht:m:" arg
+do
+	case $arg in
+		h) echo $usage
+		   exit 0;;
+		t) hours=$OPTARG;;
+		m) mem=$OPTARG;;
+	esac
+done
+
 day=$(date +%Y-%m-%d)
 pid=$$
 
@@ -18,15 +40,16 @@ logfile=logs/$day.$pid.out
 
 echo saving slurm output to
 echo $logfile
+echo requesting $hours CPU hours and $mem GB of RAM
 
 sbatch <<INP
 #!/bin/bash
 #SBATCH -J filter-dataset
 #SBATCH -p standard
-#SBATCH -t 72:00:00
+#SBATCH -t ${hours}:00:00
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=1
-#SBATCH --mem=32gb
+#SBATCH --mem=${mem}gb
 #SBATCH --account dmobley_lab
 #SBATCH --export ALL
 #SBATCH --constraint=fastscratch
