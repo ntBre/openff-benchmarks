@@ -95,9 +95,21 @@ def load_bench(d: Path, filter_records, negate) -> pandas.DataFrame:
     return ret
 
 
-def load_benches(in_dirs, filter_records, negate) -> list[pandas.DataFrame]:
-    "Load a sequence of dataframes, one per ``in_dir``."
-    return [load_bench(Path(d), filter_records, negate) for d in in_dirs]
+def load_benches(
+    ffs, in_dirs, filter_records, negate
+) -> list[pandas.DataFrame]:
+    """Load a sequence of dataframes, one per ``ff``. If there are multiple
+    ``in_dirs``, each ``ff`` is loaded from each ``in_dir`` and stacked into a
+    single dataframe."""
+    ret = list()
+    for ff in ffs:
+        df = load_bench(Path(in_dirs[0]) / ff, filter_records, negate)
+        for d in in_dirs[1:]:
+            df = pandas.concat(
+                [df, load_bench(Path(d) / ff, filter_records, negate)]
+            )
+        ret.append(df)
+    return ret
 
 
 def merge_metrics(dfs, names, metric: str):
@@ -206,7 +218,7 @@ def stats(dfs, names, out_dir):
             print("\\hline", file=out)
 
 
-def plot(out_dir, in_dirs=None, names=None, filter_records=None, negate=False):
+def plot(out_dir, ffs, in_dirs, names=None, filter_records=None, negate=False):
     """Plot each of the `dde`, `rmsd`, and `tfd` CSV files found in `in_dirs`
     and write the resulting PNG images to out_dir. If provided, take the plot
     legend entries from `names` instead of `in_dirs`. If `filter_records` is
@@ -214,15 +226,11 @@ def plot(out_dir, in_dirs=None, names=None, filter_records=None, negate=False):
     comparison to include only the records *not* in `filter_records`.
 
     """
-    # assume the input is next to the desired output
-    if in_dirs is None:
-        in_dirs = [out_dir]
-
     # default to directory names
     if names is None:
         names = in_dirs
 
-    dfs = load_benches(in_dirs, filter_records, negate)
+    dfs = load_benches(ffs, in_dirs, filter_records, negate)
 
     plot_ddes(dfs, names, out_dir)
     plot_rmsds(dfs, names, out_dir)

@@ -5,18 +5,17 @@ import click
 from main import plot
 
 
-def plotter(ffs, output_dir, input_dir, names=None, **kwargs):
+def plotter(ffs, output_dir, input_dirs, names=None, **kwargs):
     if names is None:
         names = ffs
-    dirs = [f"{input_dir}/{ff}" for ff in ffs]
     out_path = Path(output_dir)
     out_path.mkdir(exist_ok=True)
-    plot(output_dir, dirs, names, **kwargs)
+    plot(output_dir, ffs, input_dirs, names, **kwargs)
 
 
 @click.command()
 @click.argument("forcefields", nargs=-1)
-@click.option("--input-dir", "-d", default="output/industry")
+@click.option("--input-dir", "-d", default=["output/industry"], multiple=True)
 @click.option("--filter-records", "-r", default=None)
 @click.option("--negate", "-n", is_flag=True, default=False)
 @click.option("--output_dir", "-o", default="/tmp")
@@ -28,7 +27,7 @@ def main(forcefields, input_dir, filter_records, negate, output_dir):
     plotter(
         forcefields,
         output_dir,
-        input_dir=input_dir,
+        input_dirs=input_dir,
         filter_records=filter_records,
         negate=negate,
     )
