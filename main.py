@@ -180,6 +180,32 @@ def plot_icrmsds(dfs, names, out_dir):
         pyplot.close()
 
 
+def stats(dfs, names, out_dir):
+    with open(f"{out_dir}/stats.tex", "w") as out:
+        for m in [
+            "dde",
+            "rmsd",
+            "tfd",
+            "bonds",
+            "angles",
+            "dihedrals",
+            "impropers",
+        ]:
+            for n, df in zip(names, dfs):
+                data = df[df[m].notnull()][m]
+                avg = numpy.mean(data)
+                mae = numpy.mean(numpy.abs(data))
+                mdn = numpy.median(data)
+                std = numpy.std(data)
+                o = m.upper()
+                print(
+                    f"{n}&{o}& {avg:.2f} & {mae:.2f} & {mdn:.2f} & {std:.2f}"
+                    " \\\\",
+                    file=out,
+                )
+            print("\\hline", file=out)
+
+
 def plot(out_dir, in_dirs=None, names=None, filter_records=None, negate=False):
     """Plot each of the `dde`, `rmsd`, and `tfd` CSV files found in `in_dirs`
     and write the resulting PNG images to out_dir. If provided, take the plot
@@ -202,6 +228,8 @@ def plot(out_dir, in_dirs=None, names=None, filter_records=None, negate=False):
     plot_rmsds(dfs, names, out_dir)
     plot_tfds(dfs, names, out_dir)
     plot_icrmsds(dfs, names, out_dir)
+
+    stats(dfs, names, out_dir)
 
 
 if __name__ == "__main__":
