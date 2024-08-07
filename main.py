@@ -96,6 +96,7 @@ def load_bench(d: Path, filter_records, negate) -> pandas.DataFrame:
 
 
 def load_benches(in_dirs, filter_records, negate) -> list[pandas.DataFrame]:
+    "Load a sequence of dataframes, one per ``in_dir``."
     return [load_bench(Path(d), filter_records, negate) for d in in_dirs]
 
 
