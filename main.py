@@ -232,6 +232,9 @@ def plot(out_dir, ffs, in_dirs, names=None, filter_records=None, negate=False):
 
     dfs = load_benches(ffs, in_dirs, filter_records, negate)
 
+    for name, df in zip(names, dfs):
+        df.to_csv(f"{out_dir}/{name}.csv")
+
     plot_ddes(dfs, names, out_dir)
     plot_rmsds(dfs, names, out_dir)
     plot_tfds(dfs, names, out_dir)
